@@ -1,25 +1,30 @@
 RiboPip
 =========
 **An alignment and analysis pipeline for Ribo-seq and RNA-seq data**
-RiboPip is Ruby based pipeline for processing Ribosome Profiling (Ribo-seq) and RNA sequencing (RNA-seq) datasets. `ribopip align` starts from raw sequences files and computes a splice-aware alignment to a reference database along with a read summarization (counting mapped reads per genomic feature) and data quality assessments. Read summarization data can be merged and used for differential expression estimation with `ribopip postproc`
 
+RiboPip is Ruby based pipeline for processing Ribosome Profiling (Ribo-seq) and RNA sequencing (RNA-seq) datasets. `ribopip align` starts from raw sequences files and computes a splice-aware alignment to a reference database along with a read summarization (counting mapped reads per genomic feature) and data quality assessments. Read summarization data can be merged and used for differential expression estimation with `ribopip postproc`
 
 Getting started
 ---------------
 RiboPip wraps around all pipeline steps and ties them together for which it uses a variety of external software. It has been designed to run on every POSIX compliant UNIX system, for example, Linux, Mac OS X, and OpenBSD.
 
 **Automatic installation**
+
 Running `scripts/bootstrap` installs all external dependencies and sets up RiboPip correctly. It works out-of-the-box with most Linux flavours, although you might want to modify the bash script according to your needs.
 
 **Manual installation**
+
 1. Install all external software dependencies (see `scripts/bootstrap` for a list)
 2. Manually build C extension and Ruby gem:
+
 ```bash
 cd "ext/fastq_bucketize" && make # && copy bin to any directory in your PATH
 cd -
 rake build && gem install "./pkg/ribopip-$(rake version).gem"
 ```
+
 3. Run tests:
+
 ```bash
 rake spec
 ```
