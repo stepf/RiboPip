@@ -54,8 +54,8 @@ Gem::Specification.new do |s|
   ## those that are only needed during development
   # s.add_development_dependency('DEVDEPNAME', [">= 1.1.0", "< 2.0.0"])
   s.add_development_dependency('rdoc', ['>= 3.2.3'])
-  s.add_development_dependency('rspec', ['>= 4.2.0'])
-  s.add_development_dependency('simplecov', ['>= 0.11.2'])
+  s.add_development_dependency('rspec', ['>= 3.5.0'])
+  s.add_development_dependency('simplecov', ['>= 0.12.0'])
 
   ## Leave this section as-is. It will be automatically generated from the
   ## contents of your Git repository via the gemspec task. DO NOT REMOVE
