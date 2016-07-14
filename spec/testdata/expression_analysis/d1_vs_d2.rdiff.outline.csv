@@ -1,0 +1,11 @@
+Samples,Data_Type,Conditions
+fp_1_rep1,Ribo-Seq,Treated
+fp_1_rep2,Ribo-Seq,Treated
+fp_1_rep3,Ribo-Seq,Treated
+fp_2_rep1,Ribo-Seq,Control
+fp_2_rep2,Ribo-Seq,Control
+mrna_1_rep1,RNA-Seq,Treated
+mrna_1_rep2,RNA-Seq,Treated
+mrna_1_rep3,RNA-Seq,Treated
+mrna_2_rep1,RNA-Seq,Control
+mrna_2_rep2,RNA-Seq,Control

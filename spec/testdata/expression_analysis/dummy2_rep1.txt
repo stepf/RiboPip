@@ -1,0 +1,11 @@
+ENSMUSG00000002459  protein_coding  2
+ENSMUSG00000025903  protein_coding  1
+ENSMUSG00000025907  protein_coding  14
+ENSMUSG00000025909  protein_coding  2
+ENSMUSG00000033793  protein_coding  53
+ENSMUSG00000033813  protein_coding  3
+ENSMUSG00000033845  protein_coding  4
+ENSMUSG00000051285  protein_coding  10
+ENSMUSG00000051951  protein_coding  21
+ENSMUSG00000061024  protein_coding  5
+noname  foo 50

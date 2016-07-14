@@ -1,0 +1,9 @@
+# 625 sequences of average length 40.00
+# total length 25000
+# minimum length 40
+# maximum length 40
+# distribution of sequence length in buckets of size 1
+40--40 625
+# space peak in megabytes: 0.09 (in 5630 events)
+# mmap space peak in megabytes: 0.00
+# combined space peak in megabytes: 0.09

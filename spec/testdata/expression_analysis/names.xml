@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">"id"</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String">"baseMean"</Data></Cell>
+        <Cell><Data ss:Type="String">"baseMeanA"</Data></Cell>
+        <Cell><Data ss:Type="String">"baseMeanB"</Data></Cell>
+        <Cell><Data ss:Type="String">"foldChange"</Data></Cell>
+        <Cell><Data ss:Type="String">"log2FoldChange"</Data></Cell>
+        <Cell><Data ss:Type="String">"pval"</Data></Cell>
+        <Cell><Data ss:Type="String">"padj"</Data></Cell>
+        <Cell><Data ss:Type="String">treatment_rep1</Data></Cell>
+        <Cell><Data ss:Type="String">treatment_rep2</Data></Cell>
+        <Cell><Data ss:Type="String">control_rep1</Data></Cell>
+        <Cell><Data ss:Type="String">control_rep2</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String">"3"</Data></Cell>
+        <Cell><Data ss:Type="String">ENSMUSG00000033813</Data></Cell>
+        <Cell><Data ss:Type="String">Tcea1</Data></Cell>
+        <Cell><Data ss:Type="Number">6.46731334811733</Data></Cell>
+        <Cell><Data ss:Type="Number">9.04125990492389</Data></Cell>
+        <Cell><Data ss:Type="Number">3.89336679131076</Data></Cell>
+        <Cell><Data ss:Type="Number">0.430622151365257</Data></Cell>
+        <Cell><Data ss:Type="Number">-1.21550556069844</Data></Cell>
+        <Cell><Data ss:Type="Number">0.301594138826979</Data></Cell>
+        <Cell><Data ss:Type="Number">0.753985347067449</Data></Cell>
+        <Cell><Data ss:Type="Number">14</Data></Cell>
+        <Cell><Data ss:Type="Number">26</Data></Cell>
+        <Cell><Data ss:Type="Number">3</Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String">"5"</Data></Cell>
+        <Cell><Data ss:Type="String">ENSMUSG00000051951</Data></Cell>
+        <Cell><Data ss:Type="String">Xkr4</Data></Cell>
+        <Cell><Data ss:Type="Number">41.4233902607388</Data></Cell>
+        <Cell><Data ss:Type="Number">41.3256820384621</Data></Cell>
+        <Cell><Data ss:Type="Number">41.5210984830155</Data></Cell>
+        <Cell><Data ss:Type="Number">1.00472869254454</Data></Cell>
+        <Cell><Data ss:Type="Number">0.00680598223738908</Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="Number">59</Data></Cell>
+        <Cell><Data ss:Type="Number">129</Data></Cell>
+        <Cell><Data ss:Type="Number">21</Data></Cell>
+        <Cell><Data ss:Type="Number">21</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String">"2"</Data></Cell>
+        <Cell><Data ss:Type="String">ENSMUSG00000033793</Data></Cell>
+        <Cell><Data ss:Type="String">Atp6v1h</Data></Cell>
+        <Cell><Data ss:Type="Number">88.6640935105079</Data></Cell>
+        <Cell><Data ss:Type="Number">83.7470461149939</Data></Cell>
+        <Cell><Data ss:Type="Number">93.5811409060218</Data></Cell>
+        <Cell><Data ss:Type="Number">1.11742616900809</Data></Cell>
+        <Cell><Data ss:Type="Number">0.160179512281364</Data></Cell>
+        <Cell><Data ss:Type="Number">0.243847808276421</Data></Cell>
+        <Cell><Data ss:Type="Number">0.753985347067449</Data></Cell>
+        <Cell><Data ss:Type="Number">135</Data></Cell>
+        <Cell><Data ss:Type="Number">230</Data></Cell>
+        <Cell><Data ss:Type="Number">53</Data></Cell>
+        <Cell><Data ss:Type="Number">42</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String">"1"</Data></Cell>
+        <Cell><Data ss:Type="String">ENSMUSG00000002459</Data></Cell>
+        <Cell><Data ss:Type="String">Rgs20</Data></Cell>
+        <Cell><Data ss:Type="Number">3.65685481297908</Data></Cell>
+        <Cell><Data ss:Type="Number">3.3593192942424</Data></Cell>
+        <Cell><Data ss:Type="Number">3.95439033171576</Data></Cell>
+        <Cell><Data ss:Type="Number">1.17714036248155</Data></Cell>
+        <Cell><Data ss:Type="Number">0.235286357914584</Data></Cell>
+        <Cell><Data ss:Type="Number">0.766294484772776</Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="Number">7</Data></Cell>
+        <Cell><Data ss:Type="Number">6</Data></Cell>
+        <Cell><Data ss:Type="Number">2</Data></Cell>
+        <Cell><Data ss:Type="Number">2</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String">"1"</Data></Cell>
+        <Cell><Data ss:Type="String">noname</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">3.65685481297908</Data></Cell>
+        <Cell><Data ss:Type="Number">3.3593192942424</Data></Cell>
+        <Cell><Data ss:Type="Number">3.95439033171576</Data></Cell>
+        <Cell><Data ss:Type="Number">1.17714036248155</Data></Cell>
+        <Cell><Data ss:Type="Number">0.235286357914584</Data></Cell>
+        <Cell><Data ss:Type="Number">0.766294484772776</Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="Number">100</Data></Cell>
+        <Cell><Data ss:Type="Number">75</Data></Cell>
+        <Cell><Data ss:Type="Number">50</Data></Cell>
+        <Cell><Data ss:Type="Number">25</Data></Cell>
+      </Row>
+    </Table>
+  </Worksheet>
+</Workbook>

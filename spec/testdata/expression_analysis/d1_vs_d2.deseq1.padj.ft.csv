@@ -1,0 +1,2 @@
+"id"		"baseMean"	"baseMeanA"	"baseMeanB"	"foldChange"	"log2FoldChange"	"pval"	"padj"	treatment_rep1	treatment_rep2	control_rep1	control_rep2
+"3"	ENSMUSG00000033813	6.46731334811733	9.04125990492389	3.89336679131076	0.430622151365257	-1.21550556069844	0.301594138826979	0.753985347067449	14	26	3	1

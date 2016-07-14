@@ -1,0 +1,3 @@
+counts table:  ./spec/testdata/deseq/d1_vs_d2.counts 
+features: 6 
+features with sum(counts) >= 128 : 6 

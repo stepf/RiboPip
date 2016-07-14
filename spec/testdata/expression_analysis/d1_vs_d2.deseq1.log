@@ -1,0 +1,7 @@
+counts table:  deseq/fp_hwt_vs_fp_wt.counts
+features: 9522
+features with sum(counts) >= 128 : 8483
+Size factors:
+treatment_rep1 treatment_rep2   control_rep1   control_rep2
+     2      2      2      2
+significant changes: 73

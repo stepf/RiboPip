@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+# Trap interrupts to quit without stack trace
+Signal.trap('INT') { abort }
+
+# Modify load path
+$LOAD_PATH.unshift("#{File.dirname(__FILE__)}/../lib")
+
+require 'ribopip'
+require 'ribopip/cli'
+
+begin
+  Ribopip::CLI.start(ARGV)
+# rescue Ribopip::Error::SystemCall => cmd
+#   Ribopip::print_e("ERROR: #{cmd} returned non-zero exit code")
+#   abort
+# rescue => err
+#   Ribopip::print_e("ERROR: #{err}")
+#   abort
+end

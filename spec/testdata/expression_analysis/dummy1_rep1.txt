@@ -1,0 +1,11 @@
+ENSMUSG00000002459  protein_coding  7
+ENSMUSG00000025903  protein_coding  1
+ENSMUSG00000025905  protein_coding  1
+ENSMUSG00000025907  protein_coding  20
+ENSMUSG00000033774  protein_coding  1
+ENSMUSG00000033793  protein_coding  135
+ENSMUSG00000033813  protein_coding  14
+ENSMUSG00000033845  protein_coding  18
+ENSMUSG00000051951  protein_coding  59
+ENSMUSG00000102851  processed_pseudogene  1
+noname  foo 100

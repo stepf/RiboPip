@@ -1,0 +1,202 @@
+#!/usr/bin/env bash
+#
+# Author: Stefan Dang <stefan (at) sdang (dot) de>
+# Purpose: Set up all requirements to run ribopip (github.com/stepf/ribopip)
+# Platform: Tested on Debian Jessie
+
+set -o pipefail
+set -e
+
+# FUNCTIONS ####################################################################
+
+# Remove downloads after compiling / copying
+function my_rm {
+  [[ ${CLEANUP} == true ]] && rm -rf "${1}"
+}
+
+# Check, whether program is available in PATH;
+function install_bin {
+  # 0 = not available; 1 = available
+  [[ -z $(which "${1}") ]] && echo 0 || echo 1
+}
+
+# SETTINGS #####################################################################
+INSTALL_DIR=/usr/local/bin              # installation directory
+WORK_DIR=${HOME}/ribopip_software/      # work directory
+SCRIPT_DIR=$(dirname ${BASH_SOURCE[0]}) # script directory
+CLEANUP=true                            # remove downloads after installation
+
+# Versions
+# BAM2FASTQ_VER=1.1.0
+# DESEQ1_VER=1.14
+# DESEQ2_VER=1.2.10
+# R_VER=3.0.2
+BOWTIE2_VER=2.2.5
+BOWTIE_VER=1.1.2
+BWA_VER=0.7.3
+CUTADAPT_VER=v1.8.1
+FASTQ_ILLUMINA_FILTER_VER=0.1
+FASTQC_VER=0.10.1
+FASTX_TOOLKIT_VER=0.0.13
+FEATURECOUNTS_VER=1.4.4
+GENOMETOOLS_VER=v1.5.8
+IGVTOOLS_VER=2.3.60
+RIBODIFF_VER=v0.2.1
+SAMTOOLS_VER=1.2
+STAR_VER=STAR_2.5.0a
+TOPHAT_VER=2.0.14
+
+# INSTALL REQUIRED SOFTWARE ####################################################
+mkdir -p "${WORK_DIR}" && cd "${WORK_DIR}"
+
+apt-get update -q \
+  && apt-get install -qqy \
+  autoconf \
+  build-essential \
+  cython \
+  git \
+  libcurl4-gnutls-dev \
+  libfreetype6-dev \
+  libncurses5-dev \
+  libxml2-dev \
+  openjdk-7-jdk \
+  pkg-config \
+  python2.7-dev \
+  python-setuptools \
+  r-base \
+  wget \
+  zip \
+  zlib1g-dev \
+  && my_rm /var/lib/apt/lists/*
+
+[[ "$(install_bin 'bam2fastq')" == 0 ]] \
+  && git clone --depth 1 --recursive https://github.com/jts/bam2fastq bam2fastq \
+  && cd ./bam2fastq \
+  && make \
+  && cp bam2fastq ${INSTALL_DIR}/ \
+  && cd ..
+
+[[ "$(install_bin 'bowtie')" == 0 ]] \
+  && wget \
+  https://sourceforge.net/projects/bowtie-bio/files/bowtie/${BOWTIE_VER}/bowtie-${BOWTIE_VER}-linux-x86_64.zip \
+  && unzip bowtie-${BOWTIE_VER}-linux-x86_64.zip \
+  && cp bowtie-${BOWTIE_VER}/bowtie* ${INSTALL_DIR}/
+
+[[ "$(install_bin 'bowtie2')" == 0 ]] \
+  && wget \
+  https://sourceforge.net/projects/bowtie-bio/files/bowtie2/${BOWTIE2_VER}/bowtie2-${BOWTIE2_VER}-linux-x86_64.zip \
+  && unzip bowtie2-${BOWTIE2_VER}-linux-x86_64.zip \
+  && cp bowtie2-${BOWTIE2_VER}/bowtie2* ${INSTALL_DIR}/
+
+[[ "$(install_bin 'bwa')" == 0 ]] \
+  && git clone --depth 1 -b ${BWA_VER} https://github.com/lh3/bwa.git bwa \
+  && cd ./bwa \
+  && make \
+  && cp bwa ${INSTALL_DIR}/bwa \
+  && cd ..
+
+[[ "$(install_bin 'cutadapt')" == 0 ]] \
+  && git clone --depth 1 -b ${CUTADAPT_VER} \
+  https://github.com/marcelm/cutadapt.git cutadapt \
+  && cd cutadapt \
+  && python setup.py install \
+  && python setup.py build_ext -i \
+  && cd ..
+
+# Install DESeq1 & DESeq2
+Rscript -e \
+  'install.packages("XML", dependencies=TRUE, repos="http://cran.rstudio.com/")'
+Rscript -e \
+  'source("http://bioconductor.org/biocLite.R");biocLite();biocLite("DESeq")'
+Rscript -e \
+  'source("http://bioconductor.org/biocLite.R");biocLite();biocLite("DESeq2")'
+
+[[ "$(install_bin 'fastq_illumina_filter')" == 0 ]] \
+  && wget \
+  http://cancan.cshl.edu/labmembers/gordon/fastq_illumina_filter/release/${FASTQ_ILLUMINA_FILTER_VER}/fastq_illumina_filter-Linux-x86_64 \
+  && chmod +x fastq_illumina_filter-Linux-x86_64 \
+  && cp fastq_illumina_filter-Linux-x86_64 ${INSTALL_DIR}/fastq_illumina_filter
+
+[[ "$(install_bin 'fastqc')" == 0 ]] \
+  && wget \
+  http://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v${FASTQC_VER}.zip  \
+  && unzip "fastqc_v${FASTQC_VER}.zip" \
+  && chmod +x "${WORK_DIR}/FastQC/fastqc" \
+  && ln -s "${WORK_DIR}/FastQC/fastqc" "${INSTALL_DIR}/fastqc"
+
+# Install fastx_toolkit: fastx_filter, fastx_clipper, fastx_trimmer
+[[ "$(install_bin 'fastx_trimmer')" == 0 ]] \
+  && wget \
+  http://hannonlab.cshl.edu/fastx_toolkit/fastx_toolkit_${FASTX_TOOLKIT_VER}_binaries_Linux_2.6_amd64.tar.bz2 \
+  && mkdir fastx_toolkit \
+  && tar xjf fastx_toolkit_${FASTX_TOOLKIT_VER}_binaries_Linux_2.6_amd64.tar.bz2 -C fastx_toolkit \
+  && cp fastx_toolkit/bin/* ${INSTALL_DIR}/
+
+[[ "$(install_bin 'featureCounts')" == 0 ]] \
+  && wget -qO- \
+  https://sourceforge.net/projects/subread/files/subread-${FEATURECOUNTS_VER}/subread-${FEATURECOUNTS_VER}-Linux-x86_64.tar.gz \
+  | tar xz \
+  && cp subread-${FEATURECOUNTS_VER}-Linux-x86_64/bin/featureCounts ${INSTALL_DIR}/
+
+[[ "$(install_bin 'gt')" == 0 ]] \
+  && git clone --depth 1 -b ${GENOMETOOLS_VER} \
+  https://github.com/genometools/genometools.git genometools \
+  && cd ./genometools \
+  && make -j4 cairo=no install \
+  && cd ..
+
+[[ "$(install_bin 'igvtools')" == 0 ]] \
+  && wget \
+  http://www.broadinstitute.org/igv/projects/downloads/igvtools_${IGVTOOLS_VER}.zip \
+  && unzip igvtools_${IGVTOOLS_VER}.zip \
+  && mv ./IGVTools/igvtools ./IGVTools/igvtools.jar ${INSTALL_DIR}/
+
+[[ "$(install_bin 'ribodiff')" == 0 ]] \
+  && git clone --depth 1 -b ${RIBODIFF_VER} \
+  https://github.com/ratschlab/RiboDiff.git ribodiff \
+  && cd ribodiff \
+  && python setup.py build \
+  && python setup.py install \
+  && cd ..
+
+[[ "$(install_bin 'samtools')" == 0 ]] \
+  && wget -qO- \
+  http://sourceforge.net/projects/samtools/files/samtools/$SAMTOOLS_VER/samtools-${SAMTOOLS_VER}.tar.bz2/download \
+  | tar -xj \
+  && cd ./samtools-${SAMTOOLS_VER} \
+  && make install \
+  && cd ..
+
+[[ "$(install_bin 'STAR')" == 0 ]] \
+  && git clone --depth 1 -b ${STAR_VER} https://github.com/alexdobin/STAR.git star \
+  && cd ./star \
+  && make STAR \
+  && cp bin/Linux_x86_64/STAR ${INSTALL_DIR}/ \
+  && cd ..
+
+[[ "$(install_bin 'tophat')" == 0 ]] \
+  && wget -qO- \
+  https://ccb.jhu.edu/software/tophat/downloads/tophat-${TOPHAT_VER}.Linux_x86_64.tar.gz \
+  | tar xz \
+  && ln -s "${WORK_DIR}/tophat-${TOPHAT_VER}.Linux_x86_64/tophat" "${INSTALL_DIR}/tophat" \
+  && ln -s "${WORK_DIR}/tophat-${TOPHAT_VER}.Linux_x86_64/tophat2" "${INSTALL_DIR}/tophat2"
+
+# Cleanup work directory
+for dir in ${WORK_DIR}/*; do
+  if [[ $dir != "${WORK_DIR}/FastQC" && $dir != "${WORK_DIR}/tophat-${TOPHAT_VER}.Linux_x86_64" ]]; then
+    my_rm "${dir}"
+  fi
+done
+
+# SET UP RIBOPIP ###############################################################
+[[ "$(install_bin 'fastq-bucketize')" == 0 ]] \
+  && cd "${SCRIPT_DIR}/../ext/fastq_bucketize" \
+  && make \
+  && cp fastq-bucketize "${WORK_DIR}" \
+  && cd "${SCRIPT_DIR}/../"
+
+[[ "$(install_bin 'ribopip')" == 0 ]] \
+  && cd "${SCRIPT_DIR}/../" \
+  && rake build \
+  && gem install "./pkg/ribopip-$(rake version).gem" \
+  && ln -s bin/ribopip "${INSTALL_DIR}/ribopip"

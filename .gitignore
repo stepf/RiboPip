@@ -1,0 +1,4 @@
+doc/
+testdata/
+*.sublime*
+.DS_Store
