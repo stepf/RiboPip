@@ -1,0 +1,3 @@
+exclude_paths:
+- "spec/"
+- "lib/ribopip/filenames.rb"
