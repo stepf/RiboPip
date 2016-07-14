@@ -1,8 +1,5 @@
 languages:
    Ruby: true
-engines:
-  rubocop:
-    enabled: true
 exclude_paths:
 - "spec/"
 - "lib/ribopip/filenames.rb"
