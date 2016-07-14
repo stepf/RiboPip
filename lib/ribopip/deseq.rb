@@ -39,10 +39,12 @@ module Ribopip
         # basenames - basenames of deseq results
         def initialize(basenames)
           @basenames = basenames
-          @significant_genes_deseq1 = []
-          @significant_genes_deseq2 = []
-          @all_genes_deseq1 = []
-          @all_genes_deseq2 = []
+          @significant_genes_deseq = []
+          @significant_genes_deseq[1] = []
+          @significant_genes_deseq[2] = []
+          @all_genes_deseq = []
+          @all_genes_deseq[1] = []
+          @all_genes_deseq[2] = []
         end
 
         # Performs identification of significant genes, parses signifcant gene
@@ -57,16 +59,16 @@ module Ribopip
         # separately in an corresponding array
         def identify
           @basenames.each_with_index do |names, idx|
-            @significant_genes_deseq1[idx] = []
-            @significant_genes_deseq2[idx] = []
+            @significant_genes_deseq[1][idx] = []
+            @significant_genes_deseq[2][idx] = []
 
             File.readlines("#{names.get('padjftnorm', 1)}").drop(1).each do |line|
-              @significant_genes_deseq1[idx].push(line.split[1].delete('"')) \
+              @significant_genes_deseq[1][idx].push(line.split[1].delete('"')) \
                 unless line.split[1].nil?
             end
 
             File.readlines("#{names.get('padjftnorm', 2)}").drop(1).each do |line|
-              @significant_genes_deseq2[idx].push(line.split[0].delete('"'))\
+              @significant_genes_deseq[2][idx].push(line.split[0].delete('"'))\
                 unless line.split[0].nil?
             end
           end
@@ -76,17 +78,16 @@ module Ribopip
         # corresponding hashes for FP and total replicates
         def parse_all
           @basenames.each_with_index do |names, idx|
-            @all_genes_deseq1[idx] = {}
-            @all_genes_deseq2[idx] = {}
+            @all_genes_deseq[1][idx] = {}
+            @all_genes_deseq[2][idx] = {}
 
-            File.readlines("#{names.get('allftnorm', 1)}").drop(1).each do |line|
-              key = line.split[1].delete('"')
-              @all_genes_deseq1[idx][key.to_sym] = line
-            end
-
-            File.readlines("#{names.get('allftnorm', 2)}").drop(1).each do |line|
-              key = line.split[0].delete('"')
-              @all_genes_deseq2[idx][key.to_sym] = line
+            (1..2).each do |ver|
+              File.readlines(
+                "#{names.get('allftnorm', ver)}"
+              ).drop(ver).each do |line|
+                key = line.split[ver].delete('"')
+                @all_genes_deseq[ver][idx][key.to_sym] = line
+              end
             end
           end
         end
@@ -99,37 +100,27 @@ module Ribopip
           @basenames.each_with_index do |names, idx|
             # Compute symmetric difference
             idx2 = idx == 0 ? 1 : 0
-            targets_deseq1 =
-              @significant_genes_deseq1[idx2].to_a - \
-              @significant_genes_deseq1[idx].to_a
-            targets_deseq2 =
-              @significant_genes_deseq2[idx2].to_a - \
-              @significant_genes_deseq2[idx].to_a
+            targets_deseq = []
+            targets_deseq[1] =
+              @significant_genes_deseq[1][idx2].to_a - \
+              @significant_genes_deseq[1][idx].to_a
+            targets_deseq[2] =
+              @significant_genes_deseq[2][idx2].to_a - \
+              @significant_genes_deseq[2][idx].to_a
 
             # Write to files
-            File.open("#{names.get('padjcp', 1)}", 'a') do |file|
-              file.puts # newline
-              targets_deseq1.each do |target|
-                file.puts @all_genes_deseq1[idx][target.to_sym] \
-                  unless @all_genes_deseq1[idx][target.to_sym].nil?
-              end
-
-              manual.each do |target|
-                unless @all_genes_deseq1[idx][target.to_sym].nil?
-                  file.puts @all_genes_deseq1[idx][target.to_sym]
+            (1..2).each do |ver|
+              File.open("#{names.get('padjcp', ver)}", 'a') do |file|
+                file.puts # newline
+                targets_deseq[ver].each do |target|
+                  file.puts @all_genes_deseq[ver][idx][target.to_sym] \
+                    unless @all_genes_deseq[ver][idx][target.to_sym].nil?
                 end
-              end
-            end
-            File.open("#{names.get('padjcp', 2)}", 'a') do |file|
-              file.puts # newline
-              targets_deseq2.each do |target|
-                file.puts @all_genes_deseq2[idx][target.to_sym] \
-                  unless @all_genes_deseq2[idx][target.to_sym].nil?
-              end
 
-              manual.each do |target|
-                unless @all_genes_deseq2[idx][target.to_sym].nil?
-                  file.puts @all_genes_deseq2[idx][target.to_sym]
+                manual.each do |target|
+                  unless @all_genes_deseq[ver][idx][target.to_sym].nil?
+                    file.puts @all_genes_deseq[ver][idx][target.to_sym]
+                  end
                 end
               end
             end

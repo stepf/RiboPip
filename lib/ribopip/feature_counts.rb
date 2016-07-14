@@ -3,6 +3,20 @@ module Ribopip
   class FeatureCounts
     extend Ribopip
 
+    # Detects key collisions in hash and push elements into an array to avoid
+    # data loss
+    #
+    # hash - hash
+    # key  - key
+    # data - data
+    def push_into_hash(hash, key, data)
+      if hash[key.to_sym].nil?
+        hash[key.to_sym] = [data]
+      else # existing key
+        hash[key.to_sym].push(data)
+      end
+    end
+
     # Parses GTF annotation and writes a tab-seperated file, which assigns
     # biotypes to gene_ids. This file will be used to process FeatureCounts
     # output. Writes "#{annotation}.types".
@@ -22,17 +36,8 @@ module Ribopip
         type = line[/gene_biotype\W+\w+/].delete('"').split[1]
 
         # new gene_id
-        if features[:"#{gene_id}"].nil?
-          features[:"#{gene_id}"] = [type]
-        else # existing gene_id
-          features[:"#{gene_id}"].push(type)
-        end
-
-        if names[:"#{gene_id}"].nil?
-          names[:"#{gene_id}"] = [name]
-        else # existing gene_id
-          names[:"#{gene_id}"].push(name)
-        end
+        push_into_hash(features, gene_id, type)
+        push_into_hash(names, gene_id, name)
       end
 
       # write index
