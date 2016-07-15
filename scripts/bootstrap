@@ -190,13 +190,15 @@ done
 
 # SET UP RIBOPIP ###############################################################
 [[ "$(install_bin 'fastq-bucketize')" == 0 ]] \
-  && cd "${SCRIPT_DIR}/../ext/fastq_bucketize-0.1" \
+  && cd "${SCRIPT_DIR}/" \
+  && cd ".." \
+  && cd "/ext/fastq_bucketize-0.1" \
   && make \
   && cp fastq-bucketize "${WORK_DIR}" \
-  && cd "${SCRIPT_DIR}/../"
 
 [[ "$(install_bin 'ribopip')" == 0 ]] \
-  && cd "${SCRIPT_DIR}/../" \
+  && cd "${SCRIPT_DIR}/" \
+  && cd ".."
   && rake build \
   && gem install "./pkg/ribopip-$(rake version).gem" \
   && ln -s bin/ribopip "${INSTALL_DIR}/ribopip"
