@@ -62,14 +62,15 @@ module Ribopip
             @significant_genes_deseq[1][idx] = []
             @significant_genes_deseq[2][idx] = []
 
-            File.readlines("#{names.get('padjftnorm', 1)}").drop(1).each do |line|
-              @significant_genes_deseq[1][idx].push(line.split[1].delete('"')) \
-                unless line.split[1].nil?
-            end
-
-            File.readlines("#{names.get('padjftnorm', 2)}").drop(1).each do |line|
-              @significant_genes_deseq[2][idx].push(line.split[0].delete('"'))\
-                unless line.split[0].nil?
+            (1..2).each do |ver|
+              File.readlines(
+                "#{names.get('padjftnorm', ver)}"
+              ).drop(ver).each do |line|
+                unless line.split[ver == 1 ? 1 : 0].nil?
+                  @significant_genes_deseq[ver][idx]
+                    .push(line.split[ver].delete('"'))
+                end
+              end
             end
           end
         end
@@ -236,7 +237,7 @@ module Ribopip
       class TE
         include Ribopip
 
-        # init parameters; TODO: seperate .initialize method
+        # init parameters
         #
         # fp      - path to fp counts
         # mrna    - path to mrna counts
