@@ -9,7 +9,7 @@ describe Ribopip::Metrics::GtSeqstat do
       './spec/testdata/statistics/SRR315601_625.fastq.gt_seqstat'
     )
     # only the first 6 lines are relevant
-    `head -n 6 ./spec/testdata/SRR315601_625.fastq > ./spec/testdata/SRR315601_625.fastq`
+    `head -n 6 ./spec/testdata/statistics/SRR315601_625.fastq.gt_seqstat > ./spec/testdata/statistics/SRR315601_625.fastq.gt_seqstat`
     expect(
       FileUtils.compare_file(
         './spec/testdata/statistics/SRR315601_625.fastq.gt_seqstat',
