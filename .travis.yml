@@ -11,5 +11,3 @@ rvm:
   - 2.2.5
   - 2.3.0
   - ruby-head
-  - jruby-head
-  - rbx-2
