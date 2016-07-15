@@ -3,7 +3,6 @@ module Ribopip
   # Exit if not. Warn if version is different. Input format: Array of 4-tupel:
   # [binary, flag, version, regex],
   # e.g. ['samtools', '--version', '1.1', 'regex']
-  # TODO: define struct instead of array convention?
   class BinaryChecker
     include Ribopip
 

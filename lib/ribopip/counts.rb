@@ -129,7 +129,7 @@ module Ribopip
     # Returns integer
     REGEX = lambda do |infile, regex|
       number = File.read(infile).delete(',')[/#{regex}.*$/]
-      number = number.nil? ? 0 : number[/\d+/].to_i
+      number.nil? ? 0 : number[/\d+/].to_i
     end
   end
 end

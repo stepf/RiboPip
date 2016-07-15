@@ -59,7 +59,6 @@ module Ribopip
       # outfile - output file
       def self.compute(infile, outfile)
         fail "#{infile} does not exist." unless File.exist?(infile)
-        # TODO: Report assertion bug
         run_cmd("gt seqstat -b 1 -distlen #{infile} > #{outfile}")
       end
 

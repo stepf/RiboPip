@@ -303,7 +303,7 @@ module Ribopip
       def compute
         index(@ref, @ref_base, @software, @annotation)
 
-        if @err_rate > 0 # TODO: evaluate && @software == :tophat
+        if @err_rate > 0
           bucketized_alignment
         else # software == :star || err_rate == 0
           unbucketized_alignment

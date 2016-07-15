@@ -95,8 +95,8 @@ module Ribopip
         # Adds non-significant genes to results if they were significant in the
         # other experiment
         #
-        # manual - manual targets; TODO: remove standard values
-        def write(manual = %w(ENSMUSG00000053641 ENSMUSG00000041459))
+        # manual - manual targets
+        def write(manual = [])
           @basenames.each_with_index do |names, idx|
             # Compute symmetric difference
             idx2 = idx == 0 ? 1 : 0
@@ -112,15 +112,9 @@ module Ribopip
             (1..2).each do |ver|
               File.open("#{names.get('padjcp', ver)}", 'a') do |file|
                 file.puts # newline
-                targets_deseq[ver].each do |target|
+                (targets_deseq[ver] + manual).each do |target|
                   file.puts @all_genes_deseq[ver][idx][target.to_sym] \
                     unless @all_genes_deseq[ver][idx][target.to_sym].nil?
-                end
-
-                manual.each do |target|
-                  unless @all_genes_deseq[ver][idx][target.to_sym].nil?
-                    file.puts @all_genes_deseq[ver][idx][target.to_sym]
-                  end
                 end
               end
             end
@@ -203,7 +197,7 @@ module Ribopip
         #
         # Returns array of strings
         def parse_rep_names(infile)
-          names = File.open(infile, &:readline).split[1..-1]
+          File.open(infile, &:readline).split[1..-1]
         end
 
         # Parses normalization factors from Deseq1 log file
