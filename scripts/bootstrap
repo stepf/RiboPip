@@ -46,6 +46,21 @@ SAMTOOLS_VER=1.2
 STAR_VER=STAR_2.5.0a
 TOPHAT_VER=2.0.14
 
+# SET UP RIBOPIP ###############################################################
+[[ "$(install_bin 'fastq-bucketize')" == 0 ]] \
+  && cd "${SCRIPT_DIR}/" \
+  && cd ".." \
+  && cd "/ext/fastq_bucketize-0.1" \
+  && make \
+  && cp fastq-bucketize "${WORK_DIR}" \
+
+[[ "$(install_bin 'ribopip')" == 0 ]] \
+  && cd "${SCRIPT_DIR}/" \
+  && cd ".." \
+  && rake build \
+  && gem install "./pkg/ribopip-$(rake version).gem" \
+  && ln -s bin/ribopip "${INSTALL_DIR}/ribopip"
+
 # INSTALL REQUIRED SOFTWARE ####################################################
 mkdir -p "${WORK_DIR}" && cd "${WORK_DIR}"
 
@@ -187,18 +202,3 @@ for dir in ${WORK_DIR}/*; do
     my_rm "${dir}"
   fi
 done
-
-# SET UP RIBOPIP ###############################################################
-[[ "$(install_bin 'fastq-bucketize')" == 0 ]] \
-  && cd "${SCRIPT_DIR}/" \
-  && cd ".." \
-  && cd "/ext/fastq_bucketize-0.1" \
-  && make \
-  && cp fastq-bucketize "${WORK_DIR}" \
-
-[[ "$(install_bin 'ribopip')" == 0 ]] \
-  && cd "${SCRIPT_DIR}/" \
-  && cd ".."
-  && rake build \
-  && gem install "./pkg/ribopip-$(rake version).gem" \
-  && ln -s bin/ribopip "${INSTALL_DIR}/ribopip"
