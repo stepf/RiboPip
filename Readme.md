@@ -1,4 +1,4 @@
-RiboPip
+RiboPip [![Code Climate](https://codeclimate.com/github/stepf/RiboPip/badges/gpa.svg)](https://codeclimate.com/github/stepf/RiboPip) [![Dependency Status](https://gemnasium.com/badges/github.com/stepf/RiboPip.svg)](https://gemnasium.com/github.com/stepf/RiboPip) [![Inline docs](http://inch-ci.org/github/stepf/RiboPip.svg)](http://inch-ci.org/github/stepf/RiboPip)
 =========
 **An alignment and analysis pipeline for Ribo-seq and RNA-seq data**
 
