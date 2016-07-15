@@ -1,4 +1,4 @@
-RiboPip [![Code Climate](https://codeclimate.com/github/stepf/RiboPip/badges/gpa.svg)](https://codeclimate.com/github/stepf/RiboPip) [![Dependency Status](https://gemnasium.com/badges/github.com/stepf/RiboPip.svg)](https://gemnasium.com/github.com/stepf/RiboPip) [![Inline docs](http://inch-ci.org/github/stepf/RiboPip.svg)](http://inch-ci.org/github/stepf/RiboPip)
+RiboPip [![Build Status](https://travis-ci.org/stepf/RiboPip.svg?branch=master)](https://travis-ci.org/stepf/RiboPip) [![Code Climate](https://codeclimate.com/github/stepf/RiboPip/badges/gpa.svg)](https://codeclimate.com/github/stepf/RiboPip) [![Dependency Status](https://gemnasium.com/badges/github.com/stepf/RiboPip.svg)](https://gemnasium.com/github.com/stepf/RiboPip) [![Inline docs](http://inch-ci.org/github/stepf/RiboPip.svg)](http://inch-ci.org/github/stepf/RiboPip)
 =========
 **An alignment and analysis pipeline for Ribo-seq and RNA-seq data**
 
@@ -11,6 +11,13 @@ RiboPip wraps around all pipeline steps and ties them together for which it depe
 **Automatic installation**
 
 Running `scripts/bootstrap` installs all external dependencies and sets up RiboPip correctly. It works out-of-the-box with most Linux flavours, although you might want to modify the bash script according to your needs.
+
+**Docker container**
+
+A minmal Docker container (Debian) with pre-installed dependencies can be obtained through the Docker Hub:
+```bash
+docker pull stepf/ribopip
+```
 
 **Manual installation**
 
