@@ -18,7 +18,7 @@ Running `scripts/bootstrap` installs all external dependencies and sets up RiboP
 2. Manually build C extension and Ruby gem:
 
 ```bash
-cd "ext/fastq_bucketize" && make # && copy bin to any directory in your PATH
+cd "ext/fastq-bucketize-0.1" && make # && copy bin to any directory in your PATH
 cd -
 rake build && gem install "./pkg/ribopip-$(rake version).gem"
 ```
