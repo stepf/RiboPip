@@ -1,7 +1,7 @@
 language: ruby
 
 before_script:
-  - sudo ./scripts/bootstrap
+  - sudo bash -e scripts/bootstrap
 
 sudo: true
 
