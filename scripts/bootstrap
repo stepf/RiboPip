@@ -50,7 +50,7 @@ TOPHAT_VER=2.0.14
 [[ "$(install_bin 'fastq-bucketize')" == 0 ]] \
   && cd "${SCRIPT_DIR}/" \
   && cd ".." \
-  && cd "/ext/fastq_bucketize-0.1" \
+  && cd "ext/fastq_bucketize-0.1" \
   && make \
   && cp fastq-bucketize "${WORK_DIR}" \
 

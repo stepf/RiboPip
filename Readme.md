@@ -16,7 +16,14 @@ Running `scripts/bootstrap` installs all external dependencies and sets up RiboP
 
 A minmal Docker container (Debian) with pre-installed dependencies can be obtained through the Docker Hub:
 ```bash
-docker pull stepf/ribopip
+docker image pull stepf/ribopip
+```
+
+You can then spin up an interactive session to run / test the pipeline. Beware that this requires a lot of computational power, so your cluster setup will need to support containers:
+
+```bash
+docker container run --interactive --tty --rm stepf/ribopip
+# run pipeline as described below
 ```
 
 **Manual installation**
@@ -27,6 +34,7 @@ docker pull stepf/ribopip
 ```bash
 cd "ext/fastq-bucketize-0.1" && make # && copy bin to any directory in your PATH
 cd -
+bundle install
 rake build && gem install "./pkg/ribopip-$(rake version).gem"
 ```
 
@@ -71,16 +79,16 @@ ribopip align $aln_args -r mrna_control_rep2.fastq
 
 # Run downstream pipeline to analyze feature counts
 ribopip postproc -a $annotation -o . \
-  --fp_1 fp_treated \
+  --fp-1 fp_treated \
   fp_treated_rep1.vs_genome.uni.ft.dist.txt \
   fp_treated_rep2.vs_genome.uni.ft.dist.txt \
-  --fp_control fp_control \
+  --fp-control fp_control \
   fp_control_rep1.vs_genome.uni.ft.dist.txt \
   fp_control_rep2.vs_genome.uni.ft.dist.txt \
-  --mrna_1 mrna_treated  \
+  --mrna-1 mrna_treated  \
   mrna_treated_rep1.vs_genome.uni.ft.dist.txt \
   mrna_treated_rep2.vs_genome.uni.ft.dist.txt \
-  --mrna_control mrna_control  \
+  --mrna-control mrna_control  \
   mrna_control_rep1.vs_genome.uni.ft.dist.txt \
   mrna_control_rep2.vs_genome.uni.ft.dist.txt
 ```
