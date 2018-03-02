@@ -76,7 +76,7 @@ module Ribopip
       :desc => 'Software for genomic alignment',
       :enum => ['tophat', 'star'],
       :type => :string
-    method_option :genomic_software_tophat,
+    method_option :genomic_tophat_engine,
       :default => 'bowtie1',
       :banner => 'PROGRAM',
       :desc => 'Software for genomic alignment using tophat',
