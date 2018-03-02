@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   ## the sub! line in the Rakefile
   s.name              = 'ribopip'
   s.version           = '0.1.0'
-  s.date              = '2016-04-29'
+  s.date              = '2017-12-15'
   s.rubyforge_project = 'ribopip'
 
   ## Make sure your summary is short. The description may be as long
@@ -62,9 +62,14 @@ Gem::Specification.new do |s|
   ## THE MANIFEST COMMENTS, they are used as delimiters by the task.
   # = MANIFEST =
   s.files = %w[
+    Dockerfile
     Gemfile
+    LICENSE
     Rakefile
+    Readme.md
     bin/ribopip
+    ext/fastq-bucketize-0.1/Makefile
+    ext/fastq-bucketize-0.1/fastq-bucketize.c
     lib/ribopip.rb
     lib/ribopip/array_writer.rb
     lib/ribopip/binary_checker.rb
@@ -78,9 +83,10 @@ Gem::Specification.new do |s|
     lib/ribopip/metrics.rb
     lib/ribopip/pipeline.rb
     ribopip.gemspec
+    scripts/bootstrap
     scripts/join_counts.rb
-    scripts/run_deseq1.R
-    scripts/run_deseq2.R
+    scripts/run_deseq.R
+    scripts/translate_field.rb
     spec/array_writer_spec.rb
     spec/binary_checker_spec.rb
     spec/counts_spec.rb
@@ -89,28 +95,40 @@ Gem::Specification.new do |s|
     spec/gene_id_2_name_spec.rb
     spec/metrics_spec.rb
     spec/pipeline_spec.rb
-    spec/ribopip_spec.rb
+    spec/ribseq_spec.rb
     spec/spec_helper.rb
     spec/testdata/SRR315601_625.fastq
     spec/testdata/array_writer/SRR315601_625.counts.tsv
+    spec/testdata/array_writer/SRR315601_625.counts.txt
     spec/testdata/array_writer/SRR315601_625.counts.xml
     spec/testdata/array_writer/expected_read_counts.tsv
+    spec/testdata/array_writer/expected_read_counts.txt
     spec/testdata/array_writer/expected_read_counts.xml
     spec/testdata/counts/align_summary.txt
     spec/testdata/counts/uni_mapped_0err.bam
     spec/testdata/expression_analysis/d1_vs_d2.counts
+    spec/testdata/expression_analysis/d1_vs_d2.deseq.counts.norm.tsv
     spec/testdata/expression_analysis/d1_vs_d2.deseq.counts.tsv
+    spec/testdata/expression_analysis/d1_vs_d2.deseq1.all.counts.csv
+    spec/testdata/expression_analysis/d1_vs_d2.deseq1.all.counts.norm.csv
     spec/testdata/expression_analysis/d1_vs_d2.deseq1.all.csv
     spec/testdata/expression_analysis/d1_vs_d2.deseq1.all.ft.csv
+    spec/testdata/expression_analysis/d1_vs_d2.deseq1.all.ft.norm.csv
     spec/testdata/expression_analysis/d1_vs_d2.deseq1.log
+    spec/testdata/expression_analysis/d1_vs_d2.deseq1.padj.csv
     spec/testdata/expression_analysis/d1_vs_d2.deseq1.padj.ft.csv
+    spec/testdata/expression_analysis/d1_vs_d2.deseq2.log
+    spec/testdata/expression_analysis/d1_vs_d2.rdiff.outline.csv
+    spec/testdata/expression_analysis/d1_vs_d2.rdiff.results.padj.tsv
     spec/testdata/expression_analysis/d1_vs_d2.rdiff.results.tsv
     spec/testdata/expression_analysis/dummy1_rep1.txt
     spec/testdata/expression_analysis/dummy1_rep2.txt
+    spec/testdata/expression_analysis/dummy1_rep3.txt
     spec/testdata/expression_analysis/dummy2_rep1.txt
     spec/testdata/expression_analysis/dummy2_rep2.txt
     spec/testdata/expression_analysis/expected.all.ft.csv
     spec/testdata/expression_analysis/expected.all.ft.norm.csv
+    spec/testdata/expression_analysis/expected.counts.norm.tsv
     spec/testdata/expression_analysis/expected.rdiff.outline.csv
     spec/testdata/expression_analysis/expected.rdiff.results.padj.tsv
     spec/testdata/expression_analysis/expected_d1_vs_d2.counts
@@ -124,6 +142,7 @@ Gem::Specification.new do |s|
     spec/testdata/gene_id_2_name/expected.names.csv
     spec/testdata/ref/expected.name_index
     spec/testdata/ref/mini.GRCm38.80.gtf
+    spec/testdata/ref/mini.GRCm38.80.gtf.name_index
     spec/testdata/statistics/SRR315601_625.fastq.gt_seqstat
     spec/testdata/statistics/expected.gt_seqstat
   ]

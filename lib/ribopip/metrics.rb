@@ -44,8 +44,14 @@ module Ribopip
                 '| sort -n ' \
                 "> #{outfile}")
 
+        translate_field_path = File.expand_path(
+            '../../../scripts/translate_field.rb', __FILE__
+        )
+
         # merge index and distribution information
-        run_cmd("translate_field.rb -s #{outfile} #{ref}.desc 2 > #{outfile}")
+        run_cmd(
+          "#{translate_field_path} -s #{outfile} #{ref}.desc 2 > #{outfile}"
+        )
       end
     end
 

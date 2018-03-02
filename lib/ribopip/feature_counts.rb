@@ -9,7 +9,7 @@ module Ribopip
     # hash - hash
     # key  - key
     # data - data
-    def push_into_hash(hash, key, data)
+    def self.push_into_hash(hash, key, data)
       if hash[key.to_sym].nil?
         hash[key.to_sym] = [data]
       else # existing key
