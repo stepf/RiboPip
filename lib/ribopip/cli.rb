@@ -98,6 +98,11 @@ module Ribopip
       :banner => 'GENOME',
       :desc => 'Path to IGV .genome file. If set TDF track will be computed.',
       :type => :string
+    method_option :featuretypes,
+      :banner => 'FT1 [FT2...]',
+      :default => 'UTR',
+      :desc => 'Feature types to count besides CDS',
+      :type => :array
     method_option :force_overwrite,
       :desc => 'Overwrite all existing files',
       :default => false,
@@ -254,14 +259,18 @@ module Ribopip
           options[:genomic_annotation],
           'CDS'
         )
-        FeatureCounts.compute(
-          "#{names.get('mapped_uniq')}",
-          "#{names.get('ftutr')}",
-          options[:genomic_annotation],
-          'UTR'
-        )
         counts.parse_nreads("#{names.get('ftcdslog')}", 'n_cds', 'Assigned')
-        counts.parse_nreads("#{names.get('ftutrlog')}", 'n_utr', 'Assigned')
+        options[:featuretypes].each do |ft|
+          FeatureCounts.compute(
+            "#{names.get('mapped_uniq')}",
+            "#{names.get('ftgenericpfx')}#{ft}#{names.get('ftgenericsfx')}",
+            options[:genomic_annotation],
+            ft
+          )
+          counts.parse_nreads("#{names.get('ftgenericlogpfx')}#{ft}"+
+                              "#{names.get('ftgenericlogsfx')}",
+                              "n_#{ft}", 'Assigned')
+        end
       ensure
         ##
         # WRITE COUNTS

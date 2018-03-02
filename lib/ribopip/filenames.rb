@@ -119,7 +119,8 @@ module Ribopip
           ],
           ft: ['.vs_genome.uni.ft.txt', 'FeatureCounts Exon'],
           ftcds: ['.vs_genome.uni.ft.cds.txt', 'FeatureCounts CDS'],
-          ftutr: ['.vs_genome.uni.ft.utr.txt', 'FeatureCounts UTR'],
+          ftgenericpfx: ['.vs_genome.uni.ft.', 'FeatureCounts Generic Pfx'],
+          ftgenericsfx: ['.txt', 'FeatureCounts Generic Sfx'],
           ftdist: [
             '.vs_genome.uni.ft.dist.txt',
             'FeatureCounts distribution'
@@ -140,9 +141,13 @@ module Ribopip
             '.vs_genome.uni.ft.cds.txt.summary',
             'FeatureCounts CDS Log'
           ],
-          ftutrlog: [
-            '.vs_genome.uni.ft.utr.txt.summary',
-            'FeatureCounts UTR Log'
+          ftgenericlogpfx: [
+            '.vs_genome.uni.ft.',
+            'FeatureCounts Generic Log Pfx'
+          ]
+          ftgenericlogsfx: [
+            '.txt.summary',
+            'FeatureCounts Generic Log Sfx'
           ]
         }
       end
